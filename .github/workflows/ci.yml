@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: Build and package (.mrbd.zip)
+        run: npm run package
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox
+      - name: Play it with the band's keys
+        run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lumen-goat-crossing.mrbd.zip
+          path: dist/lumen-goat-crossing.mrbd.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-screenshots
+          path: .e2e-output/
