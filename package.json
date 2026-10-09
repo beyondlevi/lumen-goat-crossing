@@ -1,0 +1,24 @@
+{
+  "name": "lumen-goat-crossing",
+  "private": true,
+  "license": "MIT",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Goat Crossing: an endless road, river and rails crossing for Rokid Lumen glasses, played with the Meta Neural Band's swipes.",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build",
+    "package": "npm run build && node scripts/package-offline.mjs",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:e2e": "node tests/e2e/run.mjs"
+  },
+  "devDependencies": {
+    "fflate": "0.8.3",
+    "playwright": "1.55.0",
+    "typescript": "5.9.3",
+    "vite": "8.0.0",
+    "vitest": "5.0.2"
+  }
+}
